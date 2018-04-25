@@ -1,70 +1,63 @@
 const {assert} = require('chai');
-const {config} = require('../../wdio.conf');
 
-const HOMEPAGE = config.baseUrl;
-const DASHBOARD_USER_ACTIVITY = '/dashboard/user-activity';
-const DASHBOARD_USAGE_BEHAVIOR = '/dashboard/usage-behavior';
-const DASHBOARD_HARDWARE = '/dashboard/hardware';
-const PAGE_TITLE = 'Firefox Public Data Report';
+const Homepage = require('../pages/Homepage');
+const UserActivityPage = require('../pages/UserActivity');
+const UsageBehaviorPage = require('../pages/UsageBehavior');
+const HardwarePage = require('../pages/Hardware');
 
 describe("Firefox Public Data Report", () => {
   it("should navigate to the homepage", () => {
-    const page = browser.url(HOMEPAGE);
-    assert.equal(page.getUrl(), `${HOMEPAGE}/`);
-    assert.equal(page.getTitle(), PAGE_TITLE);
+    const page = Homepage.open();
+    assert.equal(page.getUrl(), Homepage.canonicalUrl);
+    assert.equal(page.getTitle(), Homepage.title);
   });
 
   it("should navigate to the User Activity dashboard from the homepage", () => {
-    const page = browser.url(HOMEPAGE)
-      .click(`[href='${DASHBOARD_USER_ACTIVITY}']`);
-    assert.equal(page.getUrl(), `${HOMEPAGE}${DASHBOARD_USER_ACTIVITY}`);
-    assert.equal(page.getTitle(), PAGE_TITLE);
+    const page = Homepage.open()
+      .click(UserActivityPage.pageLinkUrl);
+    assert.equal(page.getUrl(), UserActivityPage.canonicalUrl);
+    assert.equal(page.getTitle(), UserActivityPage.title);
   });
 
   it("should navigate to the Usage Behavior dashboard from the homepage", () => {
-    const page = browser.url(HOMEPAGE)
-      .click(`[href='${DASHBOARD_USAGE_BEHAVIOR}']`);
-    assert.equal(page.getUrl(), `${HOMEPAGE}${DASHBOARD_USAGE_BEHAVIOR}`);
-    assert.equal(page.getTitle(), PAGE_TITLE);
+    const page = Homepage.open()
+      .click(UsageBehaviorPage.pageLinkUrl);
+    assert.equal(page.getUrl(), UsageBehaviorPage.canonicalUrl);
+    assert.equal(page.getTitle(), UsageBehaviorPage.title);
   });
 
   it("should navigate to the Hardware dashboard from the homepage", () => {
-    const page = browser.url(HOMEPAGE)
-      .click(`[href='${DASHBOARD_HARDWARE}']`);
-    assert.equal(page.getUrl(), `${HOMEPAGE}${DASHBOARD_HARDWARE}`);
-    assert.equal(page.getTitle(), PAGE_TITLE);
+    const page = Homepage.open()
+      .click(HardwarePage.pageLinkUrl);
+    assert.equal(page.getUrl(), HardwarePage.canonicalUrl);
+    assert.equal(page.getTitle(), HardwarePage.title);
   });
 
   it("should navigate to the next page (user-activity) from homepage", () => {
-    const page = browser.url(HOMEPAGE)
-      .click(`.next-button a`);
-    assert.equal(page.getUrl(), `${HOMEPAGE}${DASHBOARD_USER_ACTIVITY}`);
+    const page = Homepage.open()
+      .click(Homepage.nextPageButton);
+    assert.equal(page.getUrl(), UserActivityPage.canonicalUrl);
   });
 
   it("should navigate to the next page (usage-behavior) from user-activity dashboard", () => {
-    const page = browser.url(DASHBOARD_USER_ACTIVITY)
-      .click(`.next-button a`);
-    assert.equal(page.getUrl(), `${HOMEPAGE}${DASHBOARD_USAGE_BEHAVIOR}`);
+    const page = UserActivityPage.open()
+      .click(UserActivityPage.nextPageButton);
+    assert.equal(page.getUrl(), UsageBehaviorPage.canonicalUrl);
   });
 
   it("should navigate to the next page (hardware) from usage-behavior dashboard", () => {
-    const page = browser.url(DASHBOARD_USAGE_BEHAVIOR)
-      .click(`.next-button a`);
-    assert.equal(page.getUrl(), `${HOMEPAGE}${DASHBOARD_HARDWARE}`);
+    const page = UsageBehaviorPage.open()
+      .click(UsageBehaviorPage.nextPageButton);
+    assert.equal(page.getUrl(), HardwarePage.canonicalUrl);
   });
 
   it("should validate the regions dropdown in Usage Behavior dashboard", () => {
-    const page = browser.url(DASHBOARD_USAGE_BEHAVIOR);
-    const options = page.elements('select#category-selector option').value;
-    assert.equal(options.length, 11);
+    const page = UsageBehaviorPage.open();
+    assert.equal(UsageBehaviorPage.categorySelector.length, 11);
   });
 
   it("should validate the date dropdown in Usage Behavior dashboard 'Test Metric B5'", () => {
-    const page = browser.url(DASHBOARD_USAGE_BEHAVIOR);
-    const options = page.elements('select#date-selector option').value;
-    const firstDate = new Date(page.elements('select#date-selector option:first-child').getText());
-    const lastDate = new Date(page.elements('select#date-selector option:last-child').getText());
-    const numWeeks = Math.ceil((firstDate - lastDate) / 1000 / 60 / 60 / 24 / 7) + 1;
-    assert.equal(options.length, numWeeks);
+    const page = UsageBehaviorPage.open();
+    assert.equal(UsageBehaviorPage.dateSelectorOptions.length, UsageBehaviorPage.numWeeks);
   });
 });
