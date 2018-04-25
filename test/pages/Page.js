@@ -1,4 +1,4 @@
-const {config} = require('../../wdio.conf');
+const { config } = require('../../wdio.conf');
 
 class Page {
   constructor() {

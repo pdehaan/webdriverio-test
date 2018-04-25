@@ -10,4 +10,4 @@ class HardwarePage extends Page {
   }
 }
 
-module.exports =  new HardwarePage();
+module.exports = new HardwarePage();

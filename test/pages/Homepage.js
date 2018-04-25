@@ -10,4 +10,4 @@ class Homepage extends Page {
   }
 }
 
-module.exports =  new Homepage();
+module.exports = new Homepage();
