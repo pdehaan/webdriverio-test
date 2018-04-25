@@ -2,7 +2,7 @@ const Page = require('./Page');
 
 class HardwarePage extends Page {
   get relativeUrl() {
-    return '/dashboard/hardware';
+    return this.hardwareUrl;
   }
 
   open() {

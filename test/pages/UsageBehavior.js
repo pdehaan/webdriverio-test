@@ -4,7 +4,7 @@ const dateSelector = 'select#date-selector option';
 
 class UsageBehaviorPage extends Page {
   get relativeUrl() {
-    return '/dashboard/usage-behavior';
+    return this.usageBehaviorUrl;
   }
 
   get categorySelector() {
@@ -18,7 +18,7 @@ class UsageBehaviorPage extends Page {
   get numWeeks() {
     const firstDate = this._dateSelectorFirstDate();
     const lastDate = this._dateSelectorLastDate();
-    return Math.ceil((firstDate - lastDate) / 1000 / 60 / 60 / 24 / 7) + 1;
+    return Math.ceil((firstDate - lastDate) / 1000/*ms*/ / 60/*sec*/  / 60/*min*/ / 24/*hours*/ / 7/*days*/) + 1;
   }
 
   _dateSelectorFirstDate() {

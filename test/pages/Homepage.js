@@ -2,7 +2,7 @@ const Page = require('./Page');
 
 class Homepage extends Page {
   get relativeUrl() {
-    return '/';
+    return this.homepageUrl;
   }
 
   open() {

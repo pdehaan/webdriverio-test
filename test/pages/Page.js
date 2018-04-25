@@ -2,10 +2,15 @@ const { config } = require('../../wdio.conf');
 
 class Page {
   constructor() {
-    this.baseUrl = config.baseUrl;
     this.relativeUrl;
+    this.baseUrl = config.baseUrl;
+    this.homepageUrl = '/';
+    this.userActivityUrl = '/dashboard/user-activity';
+    this.usageBehaviorUrl = '/dashboard/usage-behavior';
+    this.hardwareUrl = '/dashboard/hardware';
     this.nextPageButton = '.next-button a';
     this.title = 'Firefox Public Data Report';
+    this._pageLinkUrl = (url) => `[href='${url || this.relativeUrl}']`;
   }
 
   get canonicalUrl() {
@@ -13,7 +18,23 @@ class Page {
   }
 
   get pageLinkUrl() {
-    return `[href='${this.relativeUrl}']`;
+    return this._pageLinkUrl();
+  }
+
+  clickUserActivityLink() {
+    return browser.click(this._pageLinkUrl(this.userActivityUrl));
+  }
+
+  clickUsageBehaviorLink() {
+    return browser.click(this._pageLinkUrl(this.usageBehaviorUrl));
+  }
+
+  clickHardwareLink() {
+    return browser.click(this._pageLinkUrl(this.hardwareUrl));
+  }
+
+  clickNextPageButton() {
+    return browser.click(this.nextPageButton);
   }
 
   open(path) {

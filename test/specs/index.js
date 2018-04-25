@@ -8,47 +8,47 @@ const HardwarePage = require('../pages/Hardware');
 describe('Firefox Public Data Report', () => {
   describe('navigation links', () => {
     it('should navigate to the homepage', () => {
-      const page = Homepage.open();
-      assert.equal(page.getUrl(), Homepage.canonicalUrl);
-      assert.equal(page.getTitle(), Homepage.title);
+      Homepage.open();
+      assert.equal(browser.getUrl(), Homepage.canonicalUrl);
+      assert.equal(browser.getTitle(), Homepage.title);
     });
 
     it('should navigate to the User Activity dashboard from the homepage', () => {
-      const page = Homepage.open().click(UserActivityPage.pageLinkUrl);
-      assert.equal(page.getUrl(), UserActivityPage.canonicalUrl);
-      assert.equal(page.getTitle(), UserActivityPage.title);
+      Homepage.open();
+      Homepage.clickUserActivityLink();
+      assert.equal(browser.getUrl(), UserActivityPage.canonicalUrl);
+      assert.equal(browser.getTitle(), UserActivityPage.title);
     });
 
     it('should navigate to the Usage Behavior dashboard from the homepage', () => {
-      const page = Homepage.open().click(UsageBehaviorPage.pageLinkUrl);
-      assert.equal(page.getUrl(), UsageBehaviorPage.canonicalUrl);
-      assert.equal(page.getTitle(), UsageBehaviorPage.title);
+      Homepage.open();
+      Homepage.clickUsageBehaviorLink();
+      assert.equal(browser.getUrl(), UsageBehaviorPage.canonicalUrl);
+      assert.equal(browser.getTitle(), UsageBehaviorPage.title);
     });
 
     it('should navigate to the Hardware dashboard from the homepage', () => {
-      const page = Homepage.open().click(HardwarePage.pageLinkUrl);
-      assert.equal(page.getUrl(), HardwarePage.canonicalUrl);
-      assert.equal(page.getTitle(), HardwarePage.title);
+      Homepage.open();
+      Homepage.clickHardwareLink();
+      assert.equal(browser.getUrl(), HardwarePage.canonicalUrl);
+      assert.equal(browser.getTitle(), HardwarePage.title);
     });
   });
 
   describe('next page buttons', () => {
     it('should navigate to the next dashboard page', () => {
       // Next page button on homepage should go to "User Activity" dashboard.
-      const userActivityPage = Homepage.open().click(Homepage.nextPageButton);
-      assert.equal(userActivityPage.getUrl(), UserActivityPage.canonicalUrl);
+      Homepage.open();
+      Homepage.clickNextPageButton();
+      assert.equal(browser.getUrl(), UserActivityPage.canonicalUrl);
 
       // Next page button on User Activity page should go to "Usage Behavior" dashboard.
-      const usageBehaviorPage = userActivityPage.click(
-        UserActivityPage.nextPageButton
-      );
-      assert.equal(usageBehaviorPage.getUrl(), UsageBehaviorPage.canonicalUrl);
+      UserActivityPage.clickNextPageButton();
+      assert.equal(browser.getUrl(), UsageBehaviorPage.canonicalUrl);
 
       // Next page button on Usage Behavior page should go to "Hardware" dashboard.
-      const hardwarePage = usageBehaviorPage.click(
-        UsageBehaviorPage.nextPageButton
-      );
-      assert.equal(hardwarePage.getUrl(), HardwarePage.canonicalUrl);
+      UsageBehaviorPage.clickNextPageButton();
+      assert.equal(browser.getUrl(), HardwarePage.canonicalUrl);
     });
   });
 

@@ -2,7 +2,7 @@ const Page = require('./Page');
 
 class UserActivityPage extends Page {
   get relativeUrl() {
-    return '/dashboard/user-activity';
+    return this.userActivityUrl;
   }
 
   open() {

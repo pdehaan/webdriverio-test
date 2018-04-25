@@ -23,6 +23,7 @@ module.exports = {
     "eqeqeq": "error",
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
+    "no-console": "warn",
     "no-var": "error",
     "prefer-const": "error",
     "prefer-template": "error",
