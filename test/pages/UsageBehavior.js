@@ -34,4 +34,4 @@ class UsageBehaviorPage extends Page {
   }
 }
 
-module.exports =  new UsageBehaviorPage();
+module.exports = new UsageBehaviorPage();
