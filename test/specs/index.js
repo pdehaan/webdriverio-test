@@ -53,13 +53,11 @@ describe("Firefox Public Data Report", () => {
 
   it("should validate the regions dropdown in Usage Behavior dashboard", () => {
     const page = UsageBehaviorPage.open();
-    const options = UsageBehaviorPage.categorySelectorOptions(page);
-    assert.equal(options.length, 11);
+    assert.equal(UsageBehaviorPage.categorySelector.length, 11);
   });
 
   it("should validate the date dropdown in Usage Behavior dashboard 'Test Metric B5'", () => {
     const page = UsageBehaviorPage.open();
-    const options = UsageBehaviorPage.dateSelectorOptions(page);
-    assert.equal(options.length, UsageBehaviorPage.numWeeks(page));
+    assert.equal(UsageBehaviorPage.dateSelectorOptions.length, UsageBehaviorPage.numWeeks);
   });
 });

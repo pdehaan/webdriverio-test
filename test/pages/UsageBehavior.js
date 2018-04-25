@@ -1,6 +1,5 @@
 const Page = require('./Page');
 
-const categorySelector = 'select#category-selector option';
 const dateSelector = 'select#date-selector option';
 
 class UsageBehaviorPage extends Page {
@@ -8,26 +7,26 @@ class UsageBehaviorPage extends Page {
     return '/dashboard/usage-behavior';
   }
 
-  categorySelectorOptions(page) {
-    return page.elements(categorySelector).value;
+  get categorySelector() {
+    return browser.elements('select#category-selector option').value;
   }
 
-  dateSelectorOptions(page) {
-    return page.elements(dateSelector).value;
+  get dateSelectorOptions() {
+    return browser.elements(dateSelector).value;
   }
 
-  _dateSelectorFirstDate(page) {
-    return new Date(page.elements(`${dateSelector}:first-child`).getText());
-  }
-
-  _dateSelectorLastDate(page) {
-    return new Date(page.elements(`${dateSelector}:last-child`).getText());
-  }
-
-  numWeeks(page) {
-    const firstDate = this._dateSelectorFirstDate(page);
-    const lastDate = this._dateSelectorLastDate(page);
+  get numWeeks() {
+    const firstDate = this._dateSelectorFirstDate();
+    const lastDate = this._dateSelectorLastDate();
     return Math.ceil((firstDate - lastDate) / 1000 / 60 / 60 / 24 / 7) + 1;
+  }
+
+  _dateSelectorFirstDate() {
+    return new Date(browser.elements(`${dateSelector}:first-child`).getText());
+  }
+
+  _dateSelectorLastDate() {
+    return new Date(browser.elements(`${dateSelector}:last-child`).getText());
   }
 
   open() {
